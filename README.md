@@ -33,8 +33,7 @@ The system implements a production-grade API governance model:
     ```bash
     terraform init
     terraform apply -auto-approve
-    
-```
+    ```
 
 ## Verification & Testing
 
@@ -43,21 +42,18 @@ To test the API governance and throttling:
 1.  **Attempt Access Without Key (Should Fail):**
     ```bash
     curl -I $(terraform output -raw api_url)
-    
-```
+    ```
     Confirm you receive a \`403 Forbidden\` or \`401 Unauthorized\`.
 
 2.  **Access with Valid API Key:**
     Retrieve the key value:
     ```bash
     terraform output -raw api_key_value
-    
-```
+    ```
     Then, use the key in your request:
     ```bash
     curl -H "x-api-key: <YOUR_KEY_VALUE>" $(terraform output -raw api_url)
-    
-```
+    ```
 
 3.  **Test Throttling (Conceptual):**
     Rapidly sending more than 10 requests per second would trigger the usage plan's throttling limits, resulting in a \`429 Too Many Requests\` response.
